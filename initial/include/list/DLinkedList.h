@@ -368,7 +368,21 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
      */
     // TODO
 
-    
+    // Empty state
+    this->count = 0;
+    this->head->next = this->tail;
+    this->tail->prev = this->head;
+    this->head->prev = this->tail->next = nullptr; // just to be for sure
+
+    // Copy pointers
+    this->itemEqual = list.itemEqual;
+    this->deleteUserData = list.deleteUserData;
+    // Copy data
+    Node *tmp = list.head->next;
+    while (tmp != list.tail) {
+        add(tmp->data);
+        tmp = tmp->next;
+    }
 }
 
 template <class T>
@@ -380,6 +394,9 @@ void DLinkedList<T>::removeInternalData()
      * Traverses and deletes each node between the head and tail to release memory.
      */
     // TODO
+
+    // deleteing all nodes and user-defined data
+    // traverse and delete each node between head and tail
 }
 
 #endif /* DLINKEDLIST_H */
