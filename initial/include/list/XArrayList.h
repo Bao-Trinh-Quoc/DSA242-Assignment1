@@ -222,17 +222,17 @@
       * Finally, the dynamic array itself is deallocated from memory.
       */
      // TODO
-     if (deleteUserData != nullptr)
-     {
-         deleteUserData(this);
-     }
-     if (this->data != nullptr) {
+    if (deleteUserData != nullptr)
+    {
+        deleteUserData(this);
+    }
+    if (this->data != nullptr) {
         delete[] data;
         this->data = nullptr;
-     }
-     this->count = 0;
-     this->capacity = 0;
- }
+    }
+
+    this->count = 0;
+}
  
  template <class T>
  XArrayList<T>::XArrayList(const XArrayList<T> &list)
@@ -357,7 +357,8 @@
             this->data[i].~T(); // Call the destructor for each element
          }
      }
-     this->count = 0;
+    this->count = 0;
+    this->capacity = 10;
  }
  
  template <class T>

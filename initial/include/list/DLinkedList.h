@@ -245,13 +245,21 @@ DLinkedList<T>::DLinkedList(
     bool (*itemEqual)(T &, T &))
 {
     // TODO
-    
+    this->head = new Node();
+    this->tail = new Node();
+    this->head->next = this->tail;
+    this->tail->prev = this->head;
+    this->head->prev = this->tail->next = nullptr; // just to be for sure
+    this->count = 0;
+    this->deleteUserData = deleteUserData;
+    this->itemEqual = itemEqual;
 }
 
 template <class T>
 DLinkedList<T>::DLinkedList(const DLinkedList<T> &list)
 {
     // TODO
+
 }
 
 template <class T>
@@ -359,6 +367,8 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
      * Iterates through the source list and adds each element, preserving the order of the nodes.
      */
     // TODO
+
+    
 }
 
 template <class T>
