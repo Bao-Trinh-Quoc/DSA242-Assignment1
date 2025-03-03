@@ -1,0 +1,5 @@
+################ a place for me to save my code #################
+
+
+03/03/2024
+done ArrayList. <--- now try to understand the code better.
