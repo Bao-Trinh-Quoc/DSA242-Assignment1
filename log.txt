@@ -3,3 +3,14 @@
 
 03/03/2024
 done ArrayList. <--- now try to understand the code better.
+
+DeleteUserData: 
+A function pointer to a custom function for deleting user data, 
+useful when the elements are pointers to dynamically allocated objects.
+
+itemEqual: 
+A function pointer to a custom function for comparing elements,
+useful when the default comparison is not appropriate.
+
+
+XArrayList<Point*> pointList(deletePoint, comparePoints); <--- ohhhhhh

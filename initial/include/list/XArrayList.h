@@ -199,7 +199,6 @@
       * Also duplicates user-defined comparison and deletion functions, if applicable.
       */
      // TODO
-     // removeInternalData(); <--- problem ???????
  
      this->capacity = list.capacity;
      this->count = list.count;
@@ -207,7 +206,7 @@
      this->data = new T[capacity];
      for (int i = 0; i < count; i++)
      {
-         data[i] = list.data[i];
+        this->data[i] = list.data[i];
      }
  
      this->deleteUserData = list.deleteUserData;
@@ -227,9 +226,9 @@
      {
          deleteUserData(this);
      }
-     if (data != nullptr) {
-         delete[] data;
-         data = nullptr;
+     if (this->data != nullptr) {
+        delete[] data;
+        this->data = nullptr;
      }
      this->count = 0;
      this->capacity = 0;
@@ -355,7 +354,7 @@
      {
          for (int i = 0; i < count; ++i)
          {
-             data[i].~T(); // Call the destructor for each element
+            this->data[i].~T(); // Call the destructor for each element
          }
      }
      this->count = 0;
@@ -403,7 +402,7 @@
      // TODO
      stringstream ss;
      ss << "[";
-     for (int i = 0; i < count; ++i)
+     for (int i = 0; i < this->count; ++i)
      {
          if (i > 0)
          {
@@ -411,11 +410,11 @@
          }
          if (item2str)
          {
-             ss << item2str(data[i]);
+             ss << item2str(this->data[i]);
          }
          else
          {
-             ss << data[i];
+             ss << this->data[i];
          }
      }
      ss << "]";
