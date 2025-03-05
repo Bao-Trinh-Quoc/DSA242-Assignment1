@@ -16,4 +16,11 @@ useful when the default comparison is not appropriate.
 XArrayList<Point*> pointList(deletePoint, comparePoints); <--- ohhhhhh
 
 
+04/03/2024
 begin to implement DLinkedList
+ok xong DLinkedList it nhat thi gio da co khaong 60% btl1
+
+05/03/2024
+I have some proposed changes in clear().
+design wise now clear() will remove even dummy nodes.
+not yet apply to this src code tho.
