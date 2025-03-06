@@ -39,3 +39,16 @@ there is something like this in inventoryManager
  the testcase.
 
 implement constructor for 1D
+
+The key insight is that in C++, the get(index) method in both XArrayList 
+and DLinkedList returns a reference (T&), 
+which means you can directly assign to the returned value to 
+modify the element in the list. 
+This is a common pattern in C++ container classes,
+which allows for efficient modification of elements.
+
+define operator<< of 1D list in class itself bcs:
+This ensures that the compiler correctly associates the friend function with each template 
+instantiation of the List1D class. The issue is that when you declare 
+a non-template friend in a template class, it becomes a single function 
+that tries to work with all template instantiations, which isn't possible.

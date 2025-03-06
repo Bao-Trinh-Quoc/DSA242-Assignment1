@@ -30,8 +30,10 @@ public:
     void set(int index, T value);
     void add(const T &value);
     string toString() const;
-
-    friend ostream &operator<<(ostream &os, const List1D<T> &list);
+    // define in the class to avoid warning
+    friend ostream &operator<<(ostream &os, const List1D<T> &list) {
+        return os << list.toString();
+    }
 };
 
 // -------------------- List2D --------------------
@@ -153,38 +155,49 @@ template <typename T>
 int List1D<T>::size() const
 {
     // TODO
+    return this->pList->size();
 }
 
 template <typename T>
 T List1D<T>::get(int index) const
 {
     // TODO
+    // check Index already implemented in get itself
+    return this->pList->get(index);
 }
 
 template <typename T>
 void List1D<T>::set(int index, T value)
 {
     // TODO
+    if (index < 0 || index >= this->pList->size()) {
+        throw out_of_range("Index is out of range!");
+    }
+    
+    // get() returns a reference so I can directly set the value
+    this->pList->get(index) = value;
 }
 
 template <typename T>
 void List1D<T>::add(const T &value)
 {
     // TODO
+    this->pList->add(value);
 }
 
 template <typename T>
 string List1D<T>::toString() const
 {
     // TODO
+    return this->pList->toString();
 }
 
-template <typename T>
-ostream &operator<<(ostream &os, const List1D<T> &list)
-{
-    // TODO
-    return os;
-}
+// template <typename T>
+// ostream &operator<<(ostream &os, const List1D<T> &list)
+// {
+//     // TODO
+//     return os << list.toString();
+// }
 
 // -------------------- List2D Method Definitions --------------------
 template <typename T>
