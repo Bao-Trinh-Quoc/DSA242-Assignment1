@@ -24,3 +24,18 @@ ok xong DLinkedList it nhat thi gio da co khaong 60% btl1
 I have some proposed changes in clear().
 design wise now clear() will remove even dummy nodes.
 not yet apply to this src code tho.
+
+i probably will start code some of 1D list functions today. but man
+i got lab to do
+
+06/03/2024
+Lets start 1D list functions
+rightnow i will implement 1D list using XArrayList, there is no clear
+answer which to use tho. just use what i think is good for this. 
+will fix later if needed.
+
+there is something like this in inventoryManager
+ Note: You should implement this method with O(n2) time complexity to fully passed all
+ the testcase.
+
+implement constructor for 1D
