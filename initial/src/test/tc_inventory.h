@@ -3,12 +3,12 @@
 
 using namespace std;
 
-void tc_inventory1001() {
-    int arr[] = {1, 2, 3, 4, 5};
-    List1D<int> list1D(arr, 5);
+// void tc_inventory1001() {
+//     int arr[] = {1, 2, 3, 4, 5};
+//     List1D<int> list1D(arr, 5);
     
-    cout << list1D.toString() << endl;
-}
+//     cout << list1D.toString() << endl;
+// }
 
 // ######################### 1.0 version ===> old
 // void tc_inventory1002() {
