@@ -236,78 +236,64 @@
          Node *pNode;
  
      public:
-         // Constructor
-         BWDIterator(DLinkedList<T> *pList = nullptr, bool begin = true)
+     BWDIterator(DLinkedList<T> *pList = 0, bool last = true)
+     {
+         if (last)
          {
-             if (begin)
-             {
-                 if (pList != nullptr)
-                 {
-                     this->pNode = pList->tail->prev;
-                 }
-                 else
-                 {
-                     pNode = nullptr;
-                 }
-             }
+             if (pList != 0)
+                 this->pNode = pList->tail->prev;
              else
-             {
-                 if (pList != nullptr)
-                 {
-                     this->pNode = pList->head;
-                 }
-                 else
-                 {
-                     pNode = nullptr;
-                 }
-             }
-             this->pList = pList;
+                 pNode = 0;
          }
- 
-         BWDIterator &operator=(const BWDIterator &iterator)
+         else
          {
-             this->pNode = iterator.pNode;
-             this->pList = iterator.pList;
-             return *this;
+             if (pList != 0)
+                 this->pNode = pList->head;
+             else
+                 pNode = 0;
          }
- 
-         void remove(void (*removeItemData)(T) = nullptr)
-         {
-             this->pNode->prev->next = this->pNode->next;
-             this->pNode->next->prev = this->pNode->prev;
-             Node *pNext = this->pNode->next;    // must next, so iterator-- will go to head
-             if (removeItemData != nullptr)
-             {
-                 removeItemData(this->pNode->data);
-             }
-             delete this->pNode;
-             this->pNode = pNext;
-             pList->count-= 1;
-         }
- 
-         // Toán tử dereference
-         T &operator*()
-         {
-             return pNode->data;
-         }
- 
-         bool operator!=(const BWDIterator &iterator)
-         {
-             return this->pNode != iterator.pNode;
-         }
- 
-         BWDIterator &operator--()
-         {
-             this->pNode = this->pNode->prev;
-             return *this;
-         }
- 
-         BWDIterator operator--(int)
-         {
-             BWDIterator iterator = *this;
-             --*this;
-             return iterator;
-         }
+         this->pList = pList;
+     }
+
+     BWDIterator &operator=(const BWDIterator &iterator)
+     {
+         this->pNode = iterator.pNode;
+         this->pList = iterator.pList;
+         return *this;
+     }
+     void remove(void (*removeItemData)(T) = 0)
+     {
+         pNode->prev->next = pNode->next;
+         pNode->next->prev = pNode->prev;
+         Node *pNext = pNode->next; // MUST next, so iterator-- will go to head
+         if (removeItemData != 0)
+             removeItemData(pNode->data);
+         delete pNode;
+         pNode = pNext;
+         pList->count -= 1;
+     }
+
+     T &operator*()
+     {
+         return pNode->data;
+     }
+     bool operator!=(const BWDIterator &iterator)
+     {
+         return pNode != iterator.pNode;
+     }
+     // Prefix -- overload
+     BWDIterator &operator--()
+     {
+         pNode = pNode->prev;
+         return *this;
+     }
+     // Postfix -- overload
+     BWDIterator operator--(int)
+     {
+         BWDIterator iterator = *this;
+         --*this;
+         return iterator;
+     }
      };
  };
  

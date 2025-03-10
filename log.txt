@@ -52,3 +52,8 @@ This ensures that the compiler correctly associates the friend function with eac
 instantiation of the List1D class. The issue is that when you declare 
 a non-template friend in a template class, it becomes a single function 
 that tries to work with all template instantiations, which isn't possible.
+
+
+10/03/2024
+
+Updated DLinkedList.h: add instructor's implementation of class BWDIterator
