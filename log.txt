@@ -64,3 +64,13 @@ The string representation of List1D and List2D includes spaces.
 The description will be updated in v1.1.
 
 ok learnt a bit of valgrind ig.
+
+
+pretty weird thing to consider set in List1D 
+what if index > this->size() ?? should i use add or throw exception?
+I still think I need to throw exception.
+
+btw we had sample code for XArrayList and DLinkedList so I can use that to test my code if needed.
+
+tested my XArrayList in the testcase code tho and it passed.
+probably will read both of the code to reflex later.
