@@ -204,24 +204,58 @@ template <typename T>
 List2D<T>::List2D()
 {
     // TODO
+    this->pMatrix = new XArrayList<IList<T> *>();
 }
 
 template <typename T>
 List2D<T>::List2D(List1D<T> *array, int num_rows)
 {
     // TODO
+    this->pMatrix = new XArrayList<IList<T> *>();
+
+    // Copy each row into the matrix
+    for (int i = 0; i < num_rows; i++) {
+        // create a copy of each row to ensure I have my own data
+        List1D<T> *rowCopy = new List1D<T>(*array[i]);
+        for (int j = 0; j < array[i].size(); j++) {
+            rowCopy->add(array[i].get(j));
+        }
+
+        this->pMatrix->add(rowCopy);
+    }
 }
 
 template <typename T>
 List2D<T>::List2D(const List2D<T> &other)
 {
     // TODO
+    // deep copy
+    this->pMatrix = new XArrayList<IList<T> *>();
+
+    // Copy each row into the matrix
+    for (int i = 0; i < other.rows(); i++) {
+        IList<T> *rowCopy = new XArrayList<T>();
+
+        List1D<T> originalRow = other.getRow(i);
+        for (int j = 0; j < originalRow.size(); j++) {
+            rowCopy->add(originalRow.get(j));
+        }
+
+        this->pMatrix->add(rowCopy);
+    }
 }
 
 template <typename T>
 List2D<T>::~List2D()
 {
     // TODO
+    // clean all the reos and then delete the matrix
+    if (this->pMatrix != nullptr) {
+        for (int i = 0; i < this->pMatrix->size(); i++) {
+            delete this->pMatrix->get(i);
+        }
+        delete this->pMatrix;
+    }
 }
 
 template <typename T>

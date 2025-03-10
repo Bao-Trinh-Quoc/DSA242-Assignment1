@@ -10,6 +10,7 @@ void tc_inventory1001() {
     cout << list1D.toString() << endl;
 }
 
+// ######################### 1.0 version ===> old
 // void tc_inventory1002() {
 //     int row0[] = {1, 2, 3};
 //     int row1[] = {4, 5, 6};
@@ -79,3 +80,15 @@ void tc_inventory1001() {
 //     cout << result.toString() << endl;
 // }
 
+// ############# 1.1 version
+void tc_inventory1002() {
+    int row0[] = {1, 2, 3};
+    int row1[] = {4, 5, 6};
+    int row2[] = {7, 8, 9};
+    
+    List1D<int> arr2D[] = { List1D<int>(row0, 3), List1D<int>(row1, 3), List1D<int>(row2, 3) };
+    
+    List2D<int> matrix(arr2D, 3);
+    
+    cout << matrix.toString() << endl;
+}
