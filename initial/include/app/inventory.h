@@ -54,8 +54,10 @@ public:
     T get(int rowIndex, int colIndex) const;
     List1D<T> getRow(int rowIndex) const;
     string toString() const;
-
-    friend ostream &operator<<(ostream &os, const List2D<T> &matrix);
+    // define in the class to avoid warning
+    friend ostream &operator<<(ostream &os, const List2D<T> &matrix) {
+        return os << matrix.toString();
+    }
 };
 
 struct InventoryAttribute
@@ -269,33 +271,94 @@ template <typename T>
 void List2D<T>::setRow(int rowIndex, const List1D<T> &row)
 {
     // TODO
+    if (rowIndex < 0 || rowIndex >= this->rows()) {
+        throw out_of_range("Row Index is out of range!");
+    }
 
+    // delete the old row
+    delete this->pMatrix->get(rowIndex);
+
+    // create a new row and copy the data
+    IList<T> *newRow = new XArrayList<T>();
+    for (int i = 0; i < row.size(); i++) {
+        newRow->add(row.get(i));
+    }
+
+    // because set returns a reference, I can directly set the new row
+    this->pMatrix->set(rowIndex) = newRow;
 }
 
 template <typename T>
 T List2D<T>::get(int rowIndex, int colIndex) const
 {
     // TODO
+    if (rowIndex < 0 || rowIndex >= this->rows()) {
+        throw out_of_range("Row Index is out of range!");
+    }
+    if (colIndex < 0 || colIndex >= this->pMatrix->get(rowIndex)->size()) {
+        throw out_of_range("Column Index is out of range!");
+    }
+
+    return this->pMatrix->get(rowIndex)->get(colIndex);
 }
 
 template <typename T>
 List1D<T> List2D<T>::getRow(int rowIndex) const
 {
     // TODO
+    if (rowIndex < 0 || rowIndex >= this->rows()) {
+        throw out_of_range("Row Index is out of range!");
+    }
+
+    IList<T> *row = this->pMatrix->get(rowIndex);
+
+    List1D<T> rowList;
+    for (int i = 0; i < row->size(); i++) {
+        rowList.add(row->get(i));
+    }
+
+    return rowList;
 }
 
 template <typename T>
 string List2D<T>::toString() const
 {
     // TODO
+    stringstream ss;
+    ss << "[";
+
+    // for each row in the matrix
+    for (int i = 0; i < this->rows(); i++) {
+        // add separator between rows
+        if (i > 0) {
+            ss << ", ";
+        }
+
+        IList<T> *row = this->pMatrix->get(i);
+
+        // format the row
+        ss << "[";
+        for (int j = 0; j < row->size(); j++) {
+            // add separator between elements
+            if (j > 0) {
+                ss << ", ";
+            }
+
+            ss << row->get(j);
+        }
+        ss << "]";
+    }
+
+    ss << "]";
+    return ss.str();
 }
 
-template <typename T>
-ostream &operator<<(ostream &os, const List2D<T> &matrix)
-{
-    // TODO
-    return os;
-}
+// template <typename T>
+// ostream &operator<<(ostream &os, const List2D<T> &matrix)
+// {
+//     // TODO
+//     return os << matrix.toString();
+// }
 
 // -------------------- InventoryManager Method Definitions --------------------
 InventoryManager::InventoryManager()
@@ -318,6 +381,7 @@ InventoryManager::InventoryManager(const InventoryManager &other)
 int InventoryManager::size() const
 {
     // TODO
+    return 0;
 }
 
 List1D<InventoryAttribute> InventoryManager::getProductAttributes(int index) const
@@ -328,11 +392,13 @@ List1D<InventoryAttribute> InventoryManager::getProductAttributes(int index) con
 string InventoryManager::getProductName(int index) const
 {
     // TODO
+    return "";
 }
 
 int InventoryManager::getProductQuantity(int index) const
 {
     // TODO
+    return 0;
 }
 
 void InventoryManager::updateQuantity(int index, int newQuantity)
@@ -354,6 +420,8 @@ List1D<string> InventoryManager::query(int attributeIndex, const double &minValu
                                        const double &maxValue, int minQuantity, bool ascending) const
 {
     // TODO
+    // placeholder
+    return List1D<string>();
 }
 
 void InventoryManager::removeDuplicates()
@@ -377,21 +445,25 @@ void InventoryManager::split(InventoryManager &section1,
 List2D<InventoryAttribute> InventoryManager::getAttributesMatrix() const
 {
     // TODO
+    return List2D<InventoryAttribute>();
 }
 
 List1D<string> InventoryManager::getProductNames() const
 {
     // TODO
+    return List1D<string>();
 }
 
 List1D<int> InventoryManager::getQuantities() const
 {
     // TODO
+    return List1D<int>();
 }
 
 string InventoryManager::toString() const
 {
     // TODO
+    return "";
 }
 
 #endif /* INVENTORY_MANAGER_H */
