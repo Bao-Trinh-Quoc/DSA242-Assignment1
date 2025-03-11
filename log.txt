@@ -16,11 +16,11 @@ useful when the default comparison is not appropriate.
 XArrayList<Point*> pointList(deletePoint, comparePoints); <--- ohhhhhh
 
 
-04/03/2024
+04/03/2025
 begin to implement DLinkedList
 ok xong DLinkedList it nhat thi gio da co khaong 60% btl1
 
-05/03/2024
+05/03/2025
 I have some proposed changes in clear().
 design wise now clear() will remove even dummy nodes.
 not yet apply to this src code tho.
@@ -28,7 +28,7 @@ not yet apply to this src code tho.
 i probably will start code some of 1D list functions today. but man
 i got lab to do
 
-06/03/2024
+06/03/2025
 Lets start 1D list functions
 rightnow i will implement 1D list using XArrayList, there is no clear
 answer which to use tho. just use what i think is good for this. 
@@ -54,7 +54,7 @@ a non-template friend in a template class, it becomes a single function
 that tries to work with all template instantiations, which isn't possible.
 
 
-10/03/2024
+10/03/2025
 
 Updated DLinkedList.h: add instructor's implementation of class BWDIterator
 
@@ -74,3 +74,7 @@ btw we had sample code for XArrayList and DLinkedList so I can use that to test 
 
 tested my XArrayList in the testcase code tho and it passed.
 probably will read both of the code to reflex later.
+
+11/03/2025
+
+just remember deadline for this assigment is 28/03 so I got three weeks left.

@@ -416,7 +416,7 @@ void InventoryManager::removeProduct(int index)
     // TODO
 }
 
-List1D<string> InventoryManager::query(int attributeIndex, const double &minValue,
+List1D<string> InventoryManager::query(int attributeName, const double &minValue,
                                        const double &maxValue, int minQuantity, bool ascending) const
 {
     // TODO
