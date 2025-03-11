@@ -364,6 +364,7 @@ string List2D<T>::toString() const
 InventoryManager::InventoryManager()
 {
     // TODO
+    // The default constructors of List2D and List1D will be called here
 }
 
 InventoryManager::InventoryManager(const List2D<InventoryAttribute> &matrix,
@@ -371,11 +372,21 @@ InventoryManager::InventoryManager(const List2D<InventoryAttribute> &matrix,
                                    const List1D<int> &quantities)
 {
     // TODO
+    // Do I need to validate the input ?
+    
+    // Deep copy (because List2D and List1D assignment operators)
+    this->attributesMatrix = matrix;
+    this->productNames = names;
+    this->quantities = quantities;
 }
 
 InventoryManager::InventoryManager(const InventoryManager &other)
 {
     // TODO
+    // Deep copy (because List2D and List1D assignment operators)
+    this->attributesMatrix = other.attributesMatrix;
+    this->productNames = other.productNames;
+    this->quantities = other.quantities;
 }
 
 int InventoryManager::size() const

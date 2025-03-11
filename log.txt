@@ -78,3 +78,5 @@ probably will read both of the code to reflex later.
 11/03/2025
 
 just remember deadline for this assigment is 28/03 so I got three weeks left.
+
+QUESTION: DO i need to validate the input in inventoryManager
