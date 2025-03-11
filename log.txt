@@ -80,3 +80,19 @@ probably will read both of the code to reflex later.
 just remember deadline for this assigment is 28/03 so I got three weeks left.
 
 QUESTION: DO i need to validate the input in inventoryManager
+
+
+holy the errors:
+messing around with the errors in Inventory manager 
+
+List1D<InventoryAttribute> InventoryManager::getProductAttributes(int index) const
+{
+    // TODO
+    if (index < 0 || index >= this->size()) {
+        throw out_of_range("Index is invalid!");
+    }
+    return this->attributesMatrix.getRow(index); <--- problem
+
+}
+
+temprorary fix it by changes InventoryAttribute

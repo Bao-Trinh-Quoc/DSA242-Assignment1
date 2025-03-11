@@ -60,12 +60,40 @@ public:
     }
 };
 
+// original version
+// struct InventoryAttribute
+// {
+//     string name;
+//     double value;
+//     InventoryAttribute(const string &name, double value) : name(name), value(value) {}
+//     string toString() const { return name + ": " + to_string(value); }
+// };
+
+// My version
 struct InventoryAttribute
 {
     string name;
     double value;
+
+    // Add default constructor
+    InventoryAttribute() : name(""), value(0.0) {}
+    
+    // Existing constructor
     InventoryAttribute(const string &name, double value) : name(name), value(value) {}
+    
+    // Add toString method
     string toString() const { return name + ": " + to_string(value); }
+    
+    // Define the equality operator
+    bool operator==(const InventoryAttribute& other) const {
+        return name == other.name && value == other.value;
+    }
+
+    // Define the output operator
+    friend std::ostream& operator<<(std::ostream& os, const InventoryAttribute& attr) {
+        os << attr.name << ": " << attr.value;
+        return os;
+    }
 };
 
 // -------------------- InventoryManager --------------------
@@ -392,29 +420,46 @@ InventoryManager::InventoryManager(const InventoryManager &other)
 int InventoryManager::size() const
 {
     // TODO
-    return 0;
+    return this->productNames.size();
 }
 
 List1D<InventoryAttribute> InventoryManager::getProductAttributes(int index) const
 {
     // TODO
+    if (index < 0 || index >= this->size()) {
+        throw out_of_range("Index is invalid!");
+    }
+    return this->attributesMatrix.getRow(index);
+
 }
 
 string InventoryManager::getProductName(int index) const
 {
     // TODO
-    return "";
+    // if (index < 0 || index >= this->size()) {
+    //     throw out_of_range("Index is invalid!");
+    // }
+    // return this->productNames.get(index);
 }
 
 int InventoryManager::getProductQuantity(int index) const
 {
     // TODO
-    return 0;
+    // if (index < 0 || index >= this->size()) {
+    //     throw out_of_range("Index is invalid!");
+    // }
+
+    // return this->quantities.get(index);
 }
 
 void InventoryManager::updateQuantity(int index, int newQuantity)
 {
     // TODO
+    // if (index < 0 || index >= this->size()) {
+    //     throw out_of_range("Index is invalid!");
+    // }
+
+    // this->quantities.set(index, newQuantity);
 }
 
 void InventoryManager::addProduct(const List1D<InventoryAttribute> &attributes, const string &name, int quantity)
@@ -432,7 +477,6 @@ List1D<string> InventoryManager::query(int attributeName, const double &minValue
 {
     // TODO
     // placeholder
-    return List1D<string>();
 }
 
 void InventoryManager::removeDuplicates()
@@ -456,19 +500,16 @@ void InventoryManager::split(InventoryManager &section1,
 List2D<InventoryAttribute> InventoryManager::getAttributesMatrix() const
 {
     // TODO
-    return List2D<InventoryAttribute>();
 }
 
 List1D<string> InventoryManager::getProductNames() const
 {
     // TODO
-    return List1D<string>();
 }
 
 List1D<int> InventoryManager::getQuantities() const
 {
     // TODO
-    return List1D<int>();
 }
 
 string InventoryManager::toString() const
