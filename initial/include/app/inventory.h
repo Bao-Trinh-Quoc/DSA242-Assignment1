@@ -299,21 +299,24 @@ template <typename T>
 void List2D<T>::setRow(int rowIndex, const List1D<T> &row)
 {
     // TODO
-    if (rowIndex < 0 || rowIndex >= this->rows()) {
-        throw out_of_range("Row Index is out of range!");
+    if (rowIndex < 0 || rowIndex > this->rows()) {
+        throw out_of_range("Index is out of range!");
     }
 
-    // delete the old row
-    delete this->pMatrix->get(rowIndex);
-
-    // create a new row and copy the data
     IList<T> *newRow = new XArrayList<T>();
     for (int i = 0; i < row.size(); i++) {
         newRow->add(row.get(i));
     }
 
-    // because set returns a reference, I can directly set the new row
-    this->pMatrix->set(rowIndex) = newRow;
+    // if a row already exists at the index, replace it
+    if (rowIndex < this->rows()) {
+        // to avoid memory leak
+        delete this->pMatrix->get(rowIndex);
+        this->pMatrix->get(rowIndex) = newRow;
+    } // case setRow(0, row) when rows() == 0
+    else {
+        this->pMatrix->add(newRow);
+    }
 }
 
 template <typename T>
@@ -321,13 +324,16 @@ T List2D<T>::get(int rowIndex, int colIndex) const
 {
     // TODO
     if (rowIndex < 0 || rowIndex >= this->rows()) {
-        throw out_of_range("Row Index is out of range!");
-    }
-    if (colIndex < 0 || colIndex >= this->pMatrix->get(rowIndex)->size()) {
-        throw out_of_range("Column Index is out of range!");
+        throw out_of_range("Index is out of range!");
     }
 
-    return this->pMatrix->get(rowIndex)->get(colIndex);
+    IList<T> *row = this->pMatrix->get(rowIndex);
+
+    if (colIndex < 0 || colIndex >= this->pMatrix->get(rowIndex)->size()) {
+        throw out_of_range("Index is out of range!");
+    }
+
+    return row->get(colIndex);
 }
 
 template <typename T>
@@ -335,17 +341,17 @@ List1D<T> List2D<T>::getRow(int rowIndex) const
 {
     // TODO
     if (rowIndex < 0 || rowIndex >= this->rows()) {
-        throw out_of_range("Row Index is out of range!");
+        throw out_of_range("Index is out of range!");
     }
-
+    
+    List1D<T> result;
     IList<T> *row = this->pMatrix->get(rowIndex);
-
-    List1D<T> rowList;
+    
     for (int i = 0; i < row->size(); i++) {
-        rowList.add(row->get(i));
+        result.add(row->get(i));
     }
-
-    return rowList;
+    
+    return result;
 }
 
 template <typename T>

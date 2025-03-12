@@ -96,3 +96,24 @@ List1D<InventoryAttribute> InventoryManager::getProductAttributes(int index) con
 }
 
 temprorary fix it by changes InventoryAttribute
+
+12/03/2025
+this is interesting:
+    // template <typename U> //! thêm vào  để chạy test 
+    // define in the class to avoid warning
+    // friend ostream &operator<<(ostream &os, const List1D<T> &list);
+    friend ostream &operator<<(ostream &os, const List1D<T> &list) {
+        return os << list.toString();
+    }
+
+either I define it in the class or outside the class with template<typename T>
+
+wait i realize i made mistake but it still compile in the main code lol
+
+ok I guess I need to fix a lot of List2D
+
+ok the setRow methods got complicated if i reconsider the cases
+
+hard truth even though i can code but still need a lot of time to understand it right 
+
+update the code to pass the unittest but still got a lot to fix I suppose :(.)
