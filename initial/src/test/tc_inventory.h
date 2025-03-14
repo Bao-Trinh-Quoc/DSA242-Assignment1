@@ -190,7 +190,7 @@ void tc_inventory1004(){
     cout << inventory.toString() << endl;
 }
 
-// void tc_inventory1004(){
+// void tc_inventory1005(){
 //     InventoryAttribute attrA1("weight", 10);
 //     InventoryAttribute attrA2("height", 156);
 //     InventoryAttribute arrA[] = { attrA1, attrA2 };
