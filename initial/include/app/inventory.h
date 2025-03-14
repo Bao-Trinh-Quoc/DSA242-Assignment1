@@ -442,40 +442,81 @@ List1D<InventoryAttribute> InventoryManager::getProductAttributes(int index) con
 string InventoryManager::getProductName(int index) const
 {
     // TODO
-    // if (index < 0 || index >= this->size()) {
-    //     throw out_of_range("Index is invalid!");
-    // }
-    // return this->productNames.get(index);
+    if (index < 0 || index >= this->size()) {
+        throw out_of_range("Index is invalid!");
+    }
+    return this->productNames.get(index);
 }
 
 int InventoryManager::getProductQuantity(int index) const
 {
     // TODO
-    // if (index < 0 || index >= this->size()) {
-    //     throw out_of_range("Index is invalid!");
-    // }
+    if (index < 0 || index >= this->size()) {
+        throw out_of_range("Index is invalid!");
+    }
 
-    // return this->quantities.get(index);
+    return this->quantities.get(index);
 }
 
 void InventoryManager::updateQuantity(int index, int newQuantity)
 {
     // TODO
-    // if (index < 0 || index >= this->size()) {
-    //     throw out_of_range("Index is invalid!");
-    // }
+    if (index < 0 || index >= this->size()) {
+        throw out_of_range("Index is invalid!");
+    }
 
-    // this->quantities.set(index, newQuantity);
+    this->quantities.set(index, newQuantity);
 }
 
 void InventoryManager::addProduct(const List1D<InventoryAttribute> &attributes, const string &name, int quantity)
 {
     // TODO
+
+    // Add the product attributes
+    this->attributesMatrix.setRow(this->size(), attributes);
+    // Add the product name
+    this->productNames.add(name);
+    // Add the product quantity
+    this->quantities.add(quantity);
 }
 
 void InventoryManager::removeProduct(int index)
 {
     // TODO
+    if (index < 0 || index >= this->size()) {
+        throw out_of_range("Index is invalid!");
+    }
+
+    // rebuild the matrix without the row at index
+    List2D<InventoryAttribute> newMatrix;
+
+    for (int i = 0; i < this->size(); i++) {
+        // skip the row at index
+        if (i == index) {
+            continue;
+        }
+
+        // Add current row to the new matrix
+        List1D<InventoryAttribute> row = this->attributesMatrix.getRow(i);
+        int newRow = (i < index) ? i : i - 1;
+        newMatrix.setRow(newRow, row);
+    }
+
+    // Create new lists for names and quantities
+    List1D<string> newNames;
+    List1D<int> newQuantities;
+
+    for (int i = 0; i < this->size(); i++) {
+        if (i != index) {
+            newNames.add(this->productNames.get(i));
+            newQuantities.add(this->quantities.get(i));
+        }
+    }
+
+    // Update the current object
+    this->attributesMatrix = newMatrix;
+    this->productNames = newNames;
+    this->quantities = newQuantities;
 }
 
 List1D<string> InventoryManager::query(int attributeName, const double &minValue,

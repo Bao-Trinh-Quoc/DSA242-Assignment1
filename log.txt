@@ -117,3 +117,9 @@ ok the setRow methods got complicated if i reconsider the cases
 hard truth even though i can code but still need a lot of time to understand it right 
 
 update the code to pass the unittest but still got a lot to fix I suppose :(.)
+
+14/03/2025
+
+hmm I wonder can i change the InventoryAttribute?
+
+Implement Add and Remove product in InventoryManager
