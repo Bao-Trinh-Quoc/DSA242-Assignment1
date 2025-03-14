@@ -81,90 +81,114 @@ using namespace std;
 // }
 
 // ############# 1.1 version
-void tc_inventory1002() {
-    int row0[] = {1, 2, 3};
-    int row1[] = {4, 5, 6};
-    int row2[] = {7, 8, 9};
+// void tc_inventory1002() {
+//     int row0[] = {1, 2, 3};
+//     int row1[] = {4, 5, 6};
+//     int row2[] = {7, 8, 9};
     
-    List1D<int> arr2D[] = { List1D<int>(row0, 3), List1D<int>(row1, 3), List1D<int>(row2, 3) };
+//     List1D<int> arr2D[] = { List1D<int>(row0, 3), List1D<int>(row1, 3), List1D<int>(row2, 3) };
     
-    List2D<int> matrix(arr2D, 3);
+//     List2D<int> matrix(arr2D, 3);
     
-    cout << matrix.toString() << endl;
+//     cout << matrix.toString() << endl;
+// }
+
+void tc_inventory1003() {
+    InventoryAttribute attrA1("weight", 10);
+    InventoryAttribute attrA2("height", 156);
+    InventoryAttribute arrA[] = { attrA1, attrA2 };
+    int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
+    List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
+
+    InventoryAttribute attrB1("weight", 20);
+    InventoryAttribute attrB2("depth", 24);
+    InventoryAttribute attrB3("height", 100);
+    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
+    int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
+    List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
+
+    InventoryAttribute attrC1("color", 2);
+    InventoryAttribute arrC[] = { attrC1 };
+    int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
+    List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
+
+    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
+    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
+
+    string namesArray[] = { "Product A", "Product B", "Product C" };
+    List1D<string> productNames(namesArray, 3);
+    
+    int quantitiesArray[] = { 50, 30, 20 };
+    List1D<int> quantities(quantitiesArray, 3);
+
+    InventoryManager inventory(attributesMatrix, productNames, quantities);
+    
+    cout << inventory.toString() << endl;
 }
 
-// void tc_inventory1003() {
-//     InventoryAttribute attrA1("weight", 10);
-//     InventoryAttribute attrA2("height", 156);
-//     InventoryAttribute arrA[] = { attrA1, attrA2 };
-//     int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
-//     List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
-
-//     InventoryAttribute attrB1("weight", 20);
-//     InventoryAttribute attrB2("depth", 24);
-//     InventoryAttribute attrB3("height", 100);
-//     InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
-//     int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
-//     List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
-
-//     InventoryAttribute attrC1("color", 2);
-//     InventoryAttribute arrC[] = { attrC1 };
-//     int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
-//     List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
-
-//     List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
-//     List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
-
-//     string namesArray[] = { "Product A", "Product B", "Product C" };
-//     List1D<string> productNames(namesArray, 3);
+void simplified_test() {
+    // Create a small inventory
+    InventoryAttribute attr("test", 1.0);
+    InventoryAttribute arr[] = { attr };
+    List1D<InventoryAttribute> list(arr, 1);
     
-//     int quantitiesArray[] = { 50, 30, 20 };
-//     List1D<int> quantities(quantitiesArray, 3);
-
-//     InventoryManager inventory(attributesMatrix, productNames, quantities);
+    List1D<InventoryAttribute> attributesArray[1] = { list };
+    List2D<InventoryAttribute> attributesMatrix(attributesArray, 1);
     
-//     cout << inventory.toString() << endl;
-// }
-
-// void tc_inventory1004(){
-//     InventoryAttribute attrA1("weight", 10);
-//     InventoryAttribute attrA2("height", 156);
-//     InventoryAttribute arrA[] = { attrA1, attrA2 };
-//     int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
-//     List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
-
-//     InventoryAttribute attrB1("weight", 20);
-//     InventoryAttribute attrB2("depth", 24);
-//     InventoryAttribute attrB3("height", 100);
-//     InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
-//     int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
-//     List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
-
-//     InventoryAttribute attrC1("color", 2);
-//     InventoryAttribute arrC[] = { attrC1 };
-//     int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
-//     List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
-
-//     List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
-//     List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
-
-//     string namesArray[] = { "Product A", "Product B", "Product C" };
-//     List1D<string> productNames(namesArray, 3);
+    string names[] = { "Test" };
+    List1D<string> productNames(names, 1);
     
-//     int quantitiesArray[] = { 50, 30, 20 };
-//     List1D<int> quantities(quantitiesArray, 3);
-
-//     InventoryManager inventory(attributesMatrix, productNames, quantities);
+    int qty[] = { 10 };
+    List1D<int> quantities(qty, 1);
     
-//     InventoryAttribute attrD1("weight", 15);
-//     InventoryAttribute attrD2("height", 140);
-//     InventoryAttribute arrD[] = { attrD1, attrD2 };
-//     int numAttrD = sizeof(arrD) / sizeof(arrD[0]);
-//     List1D<InventoryAttribute> listAttrD(arrD, numAttrD);
-//     inventory.addProduct(listAttrD, "Product D", 40);
-//     cout << "\nAfter adding Product D:" << endl;
-//     cout << inventory.toString() << endl;
-// }
+    // Create inventory and let it go out of scope
+    {
+        InventoryManager inventory(attributesMatrix, productNames, quantities);
+        cout << "Inventory created successfully" << endl;
+    } // Destructor called here
+    
+    cout << "Test completed successfully" << endl;
+}
+
+void tc_inventory1004(){
+    InventoryAttribute attrA1("weight", 10);
+    InventoryAttribute attrA2("height", 156);
+    InventoryAttribute arrA[] = { attrA1, attrA2 };
+    int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
+    List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
+
+    InventoryAttribute attrB1("weight", 20);
+    InventoryAttribute attrB2("depth", 24);
+    InventoryAttribute attrB3("height", 100);
+    InventoryAttribute arrB[] = { attrB1, attrB2, attrB3 };
+    int numAttrB = sizeof(arrB) / sizeof(arrB[0]);
+    List1D<InventoryAttribute> listAttrB(arrB, numAttrB);
+
+    InventoryAttribute attrC1("color", 2);
+    InventoryAttribute arrC[] = { attrC1 };
+    int numAttrC = sizeof(arrC) / sizeof(arrC[0]);
+    List1D<InventoryAttribute> listAttrC(arrC, numAttrC);
+
+    List1D<InventoryAttribute> attributesArray[3] = { listAttrA, listAttrB, listAttrC };
+    List2D<InventoryAttribute> attributesMatrix(attributesArray, 3);
+
+    string namesArray[] = { "Product A", "Product B", "Product C" };
+    List1D<string> productNames(namesArray, 3);
+    
+    int quantitiesArray[] = { 50, 30, 20 };
+    List1D<int> quantities(quantitiesArray, 3);
+
+    InventoryManager inventory(attributesMatrix, productNames, quantities);
+    
+    InventoryAttribute attrD1("weight", 15);
+    InventoryAttribute attrD2("height", 140);
+    InventoryAttribute arrD[] = { attrD1, attrD2 };
+    int numAttrD = sizeof(arrD) / sizeof(arrD[0]);
+    List1D<InventoryAttribute> listAttrD(arrD, numAttrD);
+    inventory.addProduct(listAttrD, "Product D", 40);
+    cout << "\nAfter adding Product D:" << endl;
+    cout << inventory.toString() << endl;
+}
 
 // void tc_inventory1004(){
 //     InventoryAttribute attrA1("weight", 10);

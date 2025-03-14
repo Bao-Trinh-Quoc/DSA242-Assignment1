@@ -123,3 +123,13 @@ update the code to pass the unittest but still got a lot to fix I suppose :(.)
 hmm I wonder can i change the InventoryAttribute?
 
 Implement Add and Remove product in InventoryManager
+
+changed attributeName from int to string according to the instruction (v1.1)
+
+probably left query for later because the information is unclear now.
+hmm actually think that i will implement simple one to test instead of do heavy lifting rn.
+
+ok seems like i ran into the full debug mode add everything now :).
+
+the problem is at destructor of list1D list2D afaik.
+wow debug is pretty fun ngl.

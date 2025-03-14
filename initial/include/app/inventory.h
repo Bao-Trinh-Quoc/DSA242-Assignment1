@@ -110,7 +110,7 @@ public:
                      const List1D<string> &names,
                      const List1D<int> &quantities);
     InventoryManager(const InventoryManager &other);
-
+    ~InventoryManager() {}
     int size() const;
     List1D<InventoryAttribute> getProductAttributes(int index) const;
     string getProductName(int index) const;
@@ -119,7 +119,7 @@ public:
     void addProduct(const List1D<InventoryAttribute> &attributes, const string &name, int quantity);
     void removeProduct(int index);
 
-    List1D<string> query(int attributeName, const double &minValue,
+    List1D<string> query(string attributeName, const double &minValue,
                          const double &maxValue, int minQuantity, bool ascending) const;
 
     void removeDuplicates();
@@ -279,12 +279,15 @@ template <typename T>
 List2D<T>::~List2D()
 {
     // TODO
-    // clean all the reos and then delete the matrix
+    // clean all the rows and then delete the matrix
     if (this->pMatrix != nullptr) {
         for (int i = 0; i < this->pMatrix->size(); i++) {
-            delete this->pMatrix->get(i);
+            if (this->pMatrix->get(i) != nullptr) {
+                delete this->pMatrix->get(i);
+            }
         }
         delete this->pMatrix;
+        this->pMatrix = nullptr; // to prevent use after-free
     }
 }
 
@@ -519,11 +522,11 @@ void InventoryManager::removeProduct(int index)
     this->quantities = newQuantities;
 }
 
-List1D<string> InventoryManager::query(int attributeName, const double &minValue,
+List1D<string> InventoryManager::query(string attributeName, const double &minValue,
                                        const double &maxValue, int minQuantity, bool ascending) const
 {
     // TODO
-    // placeholder
+    return List1D<string>();
 }
 
 void InventoryManager::removeDuplicates()
@@ -547,22 +550,56 @@ void InventoryManager::split(InventoryManager &section1,
 List2D<InventoryAttribute> InventoryManager::getAttributesMatrix() const
 {
     // TODO
+    return this->attributesMatrix;
 }
 
 List1D<string> InventoryManager::getProductNames() const
 {
     // TODO
+    return this->productNames;
 }
 
 List1D<int> InventoryManager::getQuantities() const
 {
     // TODO
+    return this->quantities;
 }
 
 string InventoryManager::toString() const
 {
     // TODO
-    return "";
+    stringstream ss;
+    
+    // Start with a header
+    ss << "InventoryManager[\n";
+    
+    // Add the attributes matrix
+    ss << "  AttributesMatrix: " << this->attributesMatrix.toString() << ",\n";
+    
+    // Add product names
+    ss << "  ProductNames: [";
+    for (int i = 0; i < this->productNames.size(); i++) {
+        if (i > 0) {
+            ss << ", ";
+        }
+        ss << "\"" << this->productNames.get(i) << "\"";
+    }
+    ss << "],\n";
+    
+    // Add quantities
+    ss << "  Quantities: [";
+    for (int i = 0; i < this->quantities.size(); i++) {
+        if (i > 0) {
+            ss << ", ";
+        }
+        ss << this->quantities.get(i);
+    }
+    ss << "]\n";
+    
+    // Close the representation
+    ss << "]";
+    
+    return ss.str();
 }
 
 #endif /* INVENTORY_MANAGER_H */
