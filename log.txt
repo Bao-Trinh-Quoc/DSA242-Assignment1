@@ -133,3 +133,9 @@ ok seems like i ran into the full debug mode add everything now :).
 
 the problem is at destructor of list1D list2D afaik.
 wow debug is pretty fun ngl.
+
+tam thoi xoa cai destructor ko can thiet kia di.
+
+
+
+o1 --- add operator in list1D and list2D fix the error wow!!

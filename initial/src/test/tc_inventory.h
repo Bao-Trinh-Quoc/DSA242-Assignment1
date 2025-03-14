@@ -126,29 +126,29 @@ void tc_inventory1003() {
     cout << inventory.toString() << endl;
 }
 
-void simplified_test() {
-    // Create a small inventory
-    InventoryAttribute attr("test", 1.0);
-    InventoryAttribute arr[] = { attr };
-    List1D<InventoryAttribute> list(arr, 1);
+// void simplified_test() {
+//     // Create a small inventory
+//     InventoryAttribute attr("test", 1.0);
+//     InventoryAttribute arr[] = { attr };
+//     List1D<InventoryAttribute> list(arr, 1);
     
-    List1D<InventoryAttribute> attributesArray[1] = { list };
-    List2D<InventoryAttribute> attributesMatrix(attributesArray, 1);
+//     List1D<InventoryAttribute> attributesArray[1] = { list };
+//     List2D<InventoryAttribute> attributesMatrix(attributesArray, 1);
     
-    string names[] = { "Test" };
-    List1D<string> productNames(names, 1);
+//     string names[] = { "Test" };
+//     List1D<string> productNames(names, 1);
     
-    int qty[] = { 10 };
-    List1D<int> quantities(qty, 1);
+//     int qty[] = { 10 };
+//     List1D<int> quantities(qty, 1);
     
-    // Create inventory and let it go out of scope
-    {
-        InventoryManager inventory(attributesMatrix, productNames, quantities);
-        cout << "Inventory created successfully" << endl;
-    } // Destructor called here
+//     // Create inventory and let it go out of scope
+//     {
+//         InventoryManager inventory(attributesMatrix, productNames, quantities);
+//         cout << "Inventory created successfully" << endl;
+//     } // Destructor called here
     
-    cout << "Test completed successfully" << endl;
-}
+//     cout << "Test completed successfully" << endl;
+// }
 
 void tc_inventory1004(){
     InventoryAttribute attrA1("weight", 10);
