@@ -50,8 +50,9 @@ void (*func_ptr[1])() = {
     // tc_inventory1002,
     // tc_inventory1003,
     // simplified_test
-    tc_inventory1004,
-    // tc_inventory1005
+    // tc_inventory1004,
+    tc_inventory1005,
+    // tc_inventory1006
 };
 void run(int func_idx)
 {

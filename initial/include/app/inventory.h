@@ -567,7 +567,54 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
                                        const double &maxValue, int minQuantity, bool ascending) const
 {
     // TODO
-    return List1D<string>();
+    // Use InventoryAttribute instead of pair<string, double>
+    List1D<InventoryAttribute> matchingProducts;
+
+    for (int i = 0; i < this->size(); i++) {
+        // Skip products with quantity less than minQuantity
+        if (getProductQuantity(i) < minQuantity) {
+            continue;
+        }
+
+        List1D<InventoryAttribute> attributes = getProductAttributes(i);
+        // Search for the specified attribute
+        for (int j = 0; j < attributes.size(); j++) {
+            InventoryAttribute attr = attributes.get(j);
+
+            if (attr.name == attributeName &&
+                attr.value >= minValue &&
+                attr.value <= maxValue) {
+                    // Create a new InventoryAttribute to store the product name and attribute value
+                    InventoryAttribute match(getProductName(i), attr.value);
+                    matchingProducts.add(match);
+                    break;
+            }
+        }
+    }
+
+    // Bubble sort 
+    for (int i = 0; i < matchingProducts.size() - 1; i++) {
+        for (int j = 0; j < matchingProducts.size() - i - 1; j++) {
+            // Based on ascending flag
+            bool shouldSwap = ascending ?
+                matchingProducts.get(j).value > matchingProducts.get(j + 1).value :
+                matchingProducts.get(j).value < matchingProducts.get(j + 1).value;
+        
+            if (shouldSwap) {
+                InventoryAttribute temp = matchingProducts.get(j);
+                matchingProducts.set(j, matchingProducts.get(j + 1));
+                matchingProducts.set(j + 1, temp);
+            }    
+        }
+    }
+
+    // Extract the product names
+    List1D<string> result;
+    for (int i = 0; i < matchingProducts.size(); i++) {
+        result.add(matchingProducts.get(i).name);
+    }
+
+    return result;
 }
 
 void InventoryManager::removeDuplicates()

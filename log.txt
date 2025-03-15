@@ -143,3 +143,6 @@ o1 --- add operator in list1D and list2D fix the error wow!!
 15/03/2025
 
 ok today will refine the code yesterday and try to implement remaining function;
+welp if i want to implement query fucntin i probably need to add my own testcase rn.
+
+okay implement the basic query function that passes my testcases. (and no leak:)
