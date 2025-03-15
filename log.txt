@@ -139,3 +139,7 @@ tam thoi xoa cai destructor ko can thiet kia di.
 
 
 o1 --- add operator in list1D and list2D fix the error wow!!
+
+15/03/2025
+
+ok today will refine the code yesterday and try to implement remaining function;

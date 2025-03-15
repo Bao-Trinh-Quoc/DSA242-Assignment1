@@ -30,21 +30,8 @@ public:
     void set(int index, T value);
     void add(const T &value);
     string toString() const;
-    // = operator (just for testing so i define in here)
-    List1D<T>& operator=(const List1D<T>& other) {
-        if (this != &other) {
-            // Free existing data
-            if (pList != nullptr) {
-                delete pList;
-            }
-            // Re-create and copy elements
-            pList = new XArrayList<T>();
-            for (int i = 0; i < other.size(); i++) {
-                pList->add(other.get(i));
-            }
-        }
-        return *this;
-    }
+    // = operator overloading (not in the original code)
+    List1D<T>& operator=(const List1D<T>& other);
     // define in the class to avoid warning
     friend ostream &operator<<(ostream &os, const List1D<T> &list) {
         return os << list.toString();
@@ -69,29 +56,8 @@ public:
     T get(int rowIndex, int colIndex) const;
     List1D<T> getRow(int rowIndex) const;
     string toString() const;
-    // Add this inside class List2D<T>:
-    List2D<T>& operator=(const List2D<T>& other) {
-        if (this != &other) {
-            // Free existing data
-            if (pMatrix != nullptr) {
-                for (int i = 0; i < pMatrix->size(); i++) {
-                    delete pMatrix->get(i);
-                }
-                delete pMatrix;
-            }
-            // Re-create and copy elements
-            pMatrix = new DLinkedList<IList<T>*>();
-            for (int i = 0; i < other.rows(); i++) {
-                IList<T>* newRow = new XArrayList<T>();
-                List1D<T> row = other.getRow(i);
-                for (int j = 0; j < row.size(); j++) {
-                    newRow->add(row.get(j));
-                }
-                pMatrix->add(newRow);
-            }
-        }
-        return *this;
-    }
+    // = operator overloading (not in the original code)
+    List2D<T>& operator=(const List2D<T>& other);
     // define in the class to avoid warning
     friend ostream &operator<<(ostream &os, const List2D<T> &matrix) {
         return os << matrix.toString();
@@ -259,6 +225,21 @@ string List1D<T>::toString() const
     return this->pList->toString();
 }
 
+template <typename T>
+List1D<T>& List1D<T>::operator=(const List1D<T>& other) {
+    if (this != &other) {
+        // Free existing data
+        if (pList != nullptr) {
+            delete pList;
+        }
+        // Re-create and copy elements
+        pList = new XArrayList<T>();
+        for (int i = 0; i < other.size(); i++) {
+            pList->add(other.get(i));
+        }
+    }
+    return *this;
+}
 // template <typename T>
 // ostream &operator<<(ostream &os, const List1D<T> &list)
 // {
@@ -427,6 +408,29 @@ string List2D<T>::toString() const
     return ss.str();
 }
 
+template<typename T>
+List2D<T>& List2D<T>::operator=(const List2D<T>& other) {
+    if (this != &other) {
+        // Free existing data
+        if (pMatrix != nullptr) {
+            for (int i = 0; i < pMatrix->size(); i++) {
+                delete pMatrix->get(i);
+            }
+            delete pMatrix;
+        }
+        // Re-create and copy elements
+        pMatrix = new DLinkedList<IList<T>*>();
+        for (int i = 0; i < other.rows(); i++) {
+            IList<T>* newRow = new XArrayList<T>();
+            List1D<T> row = other.getRow(i);
+            for (int j = 0; j < row.size(); j++) {
+                newRow->add(row.get(j));
+            }
+            pMatrix->add(newRow);
+        }
+    }
+    return *this;
+}
 // template <typename T>
 // ostream &operator<<(ostream &os, const List2D<T> &matrix)
 // {
