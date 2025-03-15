@@ -146,3 +146,24 @@ ok today will refine the code yesterday and try to implement remaining function;
 welp if i want to implement query fucntin i probably need to add my own testcase rn.
 
 okay implement the basic query function that passes my testcases. (and no leak:)
+Implement the removeDuplicates and pass the testcase
+one thing that I concern rightnow is time complexity of that function.
+
+Initialization:
+Creating a boolean list of size n: O(n)
+
+Main nested loops:
+Outer loop: Iterates through all products (n iterations)
+Inner loop: For each product i, compares with all subsequent products (n-i-1 iterations)
+This creates a classic O(n²) pattern: n + (n-1) + (n-2) + ... + 1 = n(n+1)/2 which is O(n²)
+
+Attribute comparison:
+For each product pair, there's another loop that compares all attributes
+If m is the maximum number of attributes per product, this adds O(m) work inside the nested loops
+Since m is typically much smaller than n and independent of n, it doesn't change the overall complexity
+
+Removal phase:
+Iterating backward through the list once to remove marked products: O(n)
+Each removal operation could be O(n) itself due to shifting elements, but since we're removing from the end, we minimize this cost
+
+"Since m is typically much smaller than n" <--- cannot trust this statement tho.

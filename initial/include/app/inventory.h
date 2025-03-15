@@ -572,11 +572,11 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
 
     for (int i = 0; i < this->size(); i++) {
         // Skip products with quantity less than minQuantity
-        if (getProductQuantity(i) < minQuantity) {
+        if (this->getProductQuantity(i) < minQuantity) {
             continue;
         }
 
-        List1D<InventoryAttribute> attributes = getProductAttributes(i);
+        List1D<InventoryAttribute> attributes = this->getProductAttributes(i);
         // Search for the specified attribute
         for (int j = 0; j < attributes.size(); j++) {
             InventoryAttribute attr = attributes.get(j);
@@ -585,7 +585,7 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
                 attr.value >= minValue &&
                 attr.value <= maxValue) {
                     // Create a new InventoryAttribute to store the product name and attribute value
-                    InventoryAttribute match(getProductName(i), attr.value);
+                    InventoryAttribute match(this->getProductName(i), attr.value);
                     matchingProducts.add(match);
                     break;
             }
@@ -620,6 +620,67 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
 void InventoryManager::removeDuplicates()
 {
     // TODO
+    if (this->size() <= 1) {
+        return;
+    }
+
+    // Track which products should be removed
+    List1D<bool> shouldRemove;
+    for (int i = 0; i < this->size(); i++) {
+        shouldRemove.add(false);
+    }
+
+    // Check each pair of products
+    // O(n2)
+    for (int i = 0; i < this->size() - 1; i++) {
+        // Skip if product is already marked
+        if (shouldRemove.get(i)) {
+            continue;
+        }
+
+        string nameI = this->getProductName(i);
+        List1D<InventoryAttribute> attributesI = this->getProductAttributes(i);
+        int quantitySum = this->getProductQuantity(i);
+
+        for (int j = i + 1; j < this->size(); j++) {
+            // Skip if product is already marked
+            if (shouldRemove.get(j)) {
+                continue;
+            }
+            // Check if the names match
+            if (this->getProductName(j) != nameI) {
+                continue;
+            }
+
+            // Check if the attributes match
+            List1D<InventoryAttribute> attributesJ = this->getProductAttributes(j);
+            if (attributesI.size() != attributesJ.size()) {
+                continue;
+            }
+            bool match = true;
+            for (int k = 0; k < attributesI.size(); k++) {
+                // operator == defined in InventoryAttribute
+                if (!(attributesI.get(k) == attributesJ.get(k))) {
+                    match = false;
+                    break;
+                }
+            }
+
+            // If all attributes and name match, it's duplicate
+            if (match) {
+                quantitySum += this->getProductQuantity(j);
+                shouldRemove.set(j, true);
+            }
+        }
+        this->updateQuantity(i, quantitySum);
+    }
+
+    // Removed all marked, starting from the end to avoid index shift
+    for (int i = this->size() - 1; i >= 0; i--) {
+        if (shouldRemove.get(i)) {
+            this->removeProduct(i);
+        }
+    }
 }
 
 InventoryManager InventoryManager::merge(const InventoryManager &inv1,
