@@ -3,12 +3,12 @@
 
 using namespace std;
 
-// void tc_inventory1001() {
-//     int arr[] = {1, 2, 3, 4, 5};
-//     List1D<int> list1D(arr, 5);
+void tc_inventory1001() {
+    int arr[] = {1, 2, 3, 4, 5};
+    List1D<int> list1D(arr, 5);
     
-//     cout << list1D.toString() << endl;
-// }
+    cout << list1D.toString() << endl;
+}
 
 // ######################### 1.0 version ===> old
 // void tc_inventory1002() {
@@ -81,17 +81,17 @@ using namespace std;
 // }
 
 // ############# 1.1 version
-// void tc_inventory1002() {
-//     int row0[] = {1, 2, 3};
-//     int row1[] = {4, 5, 6};
-//     int row2[] = {7, 8, 9};
+void tc_inventory1002() {
+    int row0[] = {1, 2, 3};
+    int row1[] = {4, 5, 6};
+    int row2[] = {7, 8, 9};
     
-//     List1D<int> arr2D[] = { List1D<int>(row0, 3), List1D<int>(row1, 3), List1D<int>(row2, 3) };
+    List1D<int> arr2D[] = { List1D<int>(row0, 3), List1D<int>(row1, 3), List1D<int>(row2, 3) };
     
-//     List2D<int> matrix(arr2D, 3);
+    List2D<int> matrix(arr2D, 3);
     
-//     cout << matrix.toString() << endl;
-// }
+    cout << matrix.toString() << endl;
+}
 
 void tc_inventory1003() {
     InventoryAttribute attrA1("weight", 10);
