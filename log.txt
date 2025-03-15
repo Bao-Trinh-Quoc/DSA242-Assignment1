@@ -167,3 +167,5 @@ Iterating backward through the list once to remove marked products: O(n)
 Each removal operation could be O(n) itself due to shifting elements, but since we're removing from the end, we minimize this cost
 
 "Since m is typically much smaller than n" <--- cannot trust this statement tho.
+
+completed all required functions in InventoryManager POG~~~

@@ -687,6 +687,30 @@ InventoryManager InventoryManager::merge(const InventoryManager &inv1,
                                          const InventoryManager &inv2)
 {
     // TODO
+    InventoryManager mergedInventory;
+
+    // Add products from inv1
+    for (int i = 0; i < inv1.size(); i++) {
+        mergedInventory.addProduct(
+            inv1.getProductAttributes(i), 
+            inv1.getProductName(i), 
+            inv1.getProductQuantity(i)
+        );
+    }
+
+    // Add products from inv2
+    for (int i = 0; i < inv2.size(); i++) {
+        mergedInventory.addProduct(
+            inv2.getProductAttributes(i), 
+            inv2.getProductName(i), 
+            inv2.getProductQuantity(i)
+        );
+    }
+
+    // Remove duplicates
+    mergedInventory.removeDuplicates();
+
+    return mergedInventory;
 }
 
 void InventoryManager::split(InventoryManager &section1,
@@ -694,6 +718,41 @@ void InventoryManager::split(InventoryManager &section1,
                              double ratio) const
 {
     // TODO
+    section1 = InventoryManager();
+    section2 = InventoryManager();
+
+    // Edge case
+    if (this->size() == 0) {
+        return;
+    }
+
+    int section1Size = static_cast<int>(ceil(this->size() * ratio));
+
+    // just to be safe
+    if (section1Size < 0) {
+        section1Size = 0;
+    }
+    else if (section1Size > this->size()) {
+        section1Size = this->size();
+    }
+
+    // Add products from section1
+    for (int i = 0; i < section1Size; i++) {
+        section1.addProduct(
+            this->getProductAttributes(i), 
+            this->getProductName(i), 
+            this->getProductQuantity(i)
+        );
+    }
+
+    // Add products from section2
+    for (int i = section1Size; i < this->size(); i++) {
+        section2.addProduct(
+            this->getProductAttributes(i), 
+            this->getProductName(i), 
+            this->getProductQuantity(i)
+        );
+    }
 }
 
 List2D<InventoryAttribute> InventoryManager::getAttributesMatrix() const
