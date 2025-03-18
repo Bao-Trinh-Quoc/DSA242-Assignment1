@@ -272,23 +272,21 @@
  template <class T>
  void XArrayList<T>::add(int index, T e)
  {
-     // TODO
-     // cannot use checkIndex here because the range is [0, count]
-     if (index < 0 || index > this->count) {
-         throw out_of_range("Index is out of range!");
-     }
- 
-     ensureCapacity(this->count + 1);   
- 
-     int moveCount = this->count - index;
-     if (moveCount > 0) {
-         memmove(this->data + index + 1, 
-             this->data + index, 
-             moveCount * sizeof(T));
-     }
- 
-     this->data[index] = e;
-     this->count++;
+    // TODO
+    // cannot use checkIndex here because the range is [0, count]
+    if (index < 0 || index > this->count) {
+        throw out_of_range("Index is out of range!");
+    }
+
+    ensureCapacity(this->count + 1);   
+
+    for (int i = this->count; i > index; i--) {
+        this->data[i] = this->data[i-1];
+    }
+
+    this->data[index] = e;
+    this->count++;
+
  }
  
  template <class T>
@@ -299,13 +297,9 @@
      checkIndex(index);
      T item = this->data[index];
      
-     int moveCount = this->count - index - 1;
-     if (moveCount > 0) {
-         memmove(this->data + index, 
-             this->data + index + 1, 
-             moveCount * sizeof(T));
-     }
- 
+    for (int i = index; i < this->count - 1; ++i) {
+        data[i] = std::move(data[i + 1]);
+      }
      this->count--;
      return item;
  }
@@ -358,7 +352,6 @@
          }
      }
     this->count = 0;
-    this->capacity = 10;
  }
  
  template <class T>
@@ -451,22 +444,27 @@
       */
      // TODO
      if (index > this->capacity) {
-         int newCapacity = this->capacity * 3 / 2;
-         if (newCapacity < index) {
-             newCapacity = index;
-         }
-         try {
-             T *newData = new T[newCapacity];
-             memmove(newData, this->data, this->count * sizeof(T));
-             this->capacity = newCapacity;
-             delete[] this->data;
- 
-             this->data = newData;
-         }
-         catch (const std::bad_alloc &e) {
-             throw e;
-         }
-     }
+        int newCapacity = this->capacity;
+        while (newCapacity < index) {
+            newCapacity *= 2; // Double the capacity until it is sufficient
+        }
+
+        try {
+            T *newData = new T[newCapacity];
+            // Copy elements properly instead of using memmove
+            for (int i = 0; i < this->count; i++) {
+                newData[i] = this->data[i];
+            }
+            T *oldData = this->data;
+            this->data = newData;
+            this->capacity = newCapacity;
+            delete[] oldData;
+        }
+        catch (const std::bad_alloc &e) {
+            throw e;
+        }
+    }
+
  }
  
  #endif /* XARRAYLIST_H */

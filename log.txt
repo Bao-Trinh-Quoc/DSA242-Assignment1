@@ -169,3 +169,10 @@ Each removal operation could be O(n) itself due to shifting elements, but since 
 "Since m is typically much smaller than n" <--- cannot trust this statement tho.
 
 completed all required functions in InventoryManager POG~~~
+
+
+18/03/2025
+
+Fixed critical errors holy
+
+clear don't set capacity and don';t use memmove anymore because it too risky
