@@ -176,3 +176,5 @@ completed all required functions in InventoryManager POG~~~
 Fixed critical errors holy
 
 clear don't set capacity and don';t use memmove anymore because it too risky
+
+fix error in ensureCapacity XArrayList

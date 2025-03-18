@@ -445,8 +445,8 @@
      // TODO
      if (index > this->capacity) {
         int newCapacity = this->capacity;
-        while (newCapacity < index) {
-            newCapacity *= 2; // Double the capacity until it is sufficient
+        while (newCapacity <= index) {
+            newCapacity = (newCapacity > 0) ? newCapacity * 2 : 1; // Double the capacity until it is sufficient
         }
 
         try {
