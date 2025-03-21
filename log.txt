@@ -1,5 +1,6 @@
 ################ a place for me to save my code #################
 
+CHECK LEAK: valgrind --leak-check=full --show-leak-kinds=all ./main
 
 03/03/2024
 done ArrayList. <--- now try to understand the code better.
@@ -217,3 +218,9 @@ wow so I will need to discuss more before I decide to change this or not.
 7:55pm:
 just realize in merge function i don't need to resolve the duplicates (as the instruction said)
 so i will remove that part. and probably submit again
+
+22/03/2025
+6:26am: ok the TA_VT "quay xe" va nghi lai ve ham clear.
+Minh cung xem lai ham clear trong XArrayList roi no set count = 0 va set lai capacity ve gia tri mac dinh ban dau
+y het trong lop lab.
+De sua lai.

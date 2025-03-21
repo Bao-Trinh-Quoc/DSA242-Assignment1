@@ -356,6 +356,7 @@
          }
      }
     this->count = 0;
+    this->capacity = 10;
  }
  
  template <class T>
