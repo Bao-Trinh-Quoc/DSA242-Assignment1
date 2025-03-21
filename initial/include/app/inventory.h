@@ -781,19 +781,51 @@ string InventoryManager::toString() const
     // TODO
     stringstream ss;
     
+    // Product Names line
+    ss << "------------------------\n"; // just add this bcs of tc in lms
+    ss << "Product Names: [";
+    for (int i = 0; i < this->productNames.size(); i++) {
+        if (i > 0) {
+            ss << ", ";
+        }
+        ss << this->productNames.get(i);
+    }
+    ss << "]\n";
+
     // Start with a header
     ss << "InventoryManager[\n";
     
     // Add the attributes matrix
-    ss << "  AttributesMatrix: " << this->attributesMatrix.toString() << ",\n";
-    
+    // instead of reuse the toString() method of List2D
+    // ss << "  AttributesMatrix: " << this->attributesMatrix.toString() << ",\n";
+    //  I will implement it my self with the fixed precision
+    ss << "  AttributesMatrix: [[";
+    for (int i = 0; i < this->attributesMatrix.rows(); i++) {
+        if (i > 0) {
+            ss << "], [";
+        }
+        List1D<InventoryAttribute> row = this->attributesMatrix.getRow(i);
+        for (int j = 0; j < row.size(); j++) {
+            if (j > 0) {
+                ss << ", ";
+            }
+            InventoryAttribute attr = row.get(j);
+            ss << attr.name << ": " << fixed << setprecision(6) << attr.value;
+        }
+    }
+    ss << "]],\n";
+
+
     // Add product names
     ss << "  ProductNames: [";
     for (int i = 0; i < this->productNames.size(); i++) {
         if (i > 0) {
             ss << ", ";
         }
-        ss << "\"" << this->productNames.get(i) << "\"";
+        // in docs there is " around the names" of product but in testcase is not
+        // so will change this if needed --- 21/03/2025
+        // ss << "\"" << this->productNames.get(i) << "\"";
+        ss << this->productNames.get(i);
     }
     ss << "],\n";
     
