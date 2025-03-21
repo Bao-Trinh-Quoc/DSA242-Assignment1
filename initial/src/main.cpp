@@ -56,7 +56,8 @@ using namespace std;
 // };
 
 void (*func_ptr[1])() = {
-    lms_tc_inventory1003,
+    simplified_test,
+    // lms_tc_inventory1003,
     // lms_tc_inventory1004,
     // lms_tc_inventory1006
 };
