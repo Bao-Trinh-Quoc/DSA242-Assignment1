@@ -190,3 +190,30 @@ welp its all about format error :).
 
 changed the format of toString method of Inventory to pass the testcases in lms.
 If needed, we will revert.
+
+now I will try to pass random test3 and 4 then submit again
+it's about List1D and List2D
+
+problems at list1D:
+ * set method 
+template <typename T>
+void List1D<T>::set(int index, T value)
+{
+    // TODO
+    if (index < 0 || index >= this->pList->size()) {
+        throw out_of_range("Index is out of range!");
+    }
+    
+    // get() returns a reference so I can directly set the value
+    this->pList->get(index) = value;
+}
+
+seems like reuse get is pretty bad.
+
+hmm what if index = the size of the list do i treat set as an add method or throw exception?
+
+wow so I will need to discuss more before I decide to change this or not.
+
+7:55pm:
+just realize in merge function i don't need to resolve the duplicates (as the instruction said)
+so i will remove that part. and probably submit again

@@ -707,8 +707,8 @@ InventoryManager InventoryManager::merge(const InventoryManager &inv1,
         );
     }
 
-    // Remove duplicates
-    mergedInventory.removeDuplicates();
+    // Remove duplicates <--- no need to do that.
+    // mergedInventory.removeDuplicates();
 
     return mergedInventory;
 }
