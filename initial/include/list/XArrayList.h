@@ -277,7 +277,6 @@
     if (index < 0 || index > this->count) {
         throw out_of_range("Index is out of range!");
     }
-        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./main
     if (index == this->count) {
         add(e);
         return;
