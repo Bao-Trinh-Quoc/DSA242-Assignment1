@@ -178,3 +178,8 @@ Fixed critical errors holy
 clear don't set capacity and don';t use memmove anymore because it too risky
 
 fix error in ensureCapacity XArrayList
+
+21/03/2025
+
+detect that cannot even use ceil :). but in my codespace i can use this ?
+changed from use ceil to implement my own ceil logic.

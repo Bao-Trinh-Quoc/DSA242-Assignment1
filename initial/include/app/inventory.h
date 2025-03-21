@@ -726,8 +726,11 @@ void InventoryManager::split(InventoryManager &section1,
         return;
     }
 
-    int section1Size = static_cast<int>(ceil(this->size() * ratio));
-
+    // int section1Size = static_cast<int>(ceil(this->size() * ratio));
+    int section1Size = (this->size() * ratio) == static_cast<int>(this->size() * ratio) 
+                   ? static_cast<int>(this->size() * ratio) 
+                   : static_cast<int>(this->size() * ratio) + 1;
+                   
     // just to be safe
     if (section1Size < 0) {
         section1Size = 0;
