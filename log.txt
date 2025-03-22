@@ -224,3 +224,8 @@ so i will remove that part. and probably submit again
 Minh cung xem lai ham clear trong XArrayList roi no set count = 0 va set lai capacity ve gia tri mac dinh ban dau
 y het trong lop lab.
 De sua lai.
+
+probably need to rethink about ensureCapacity
+maybe change the amount of it to 1.5 and fix like the instructor said.
+
+8:01pm: ok change the to String like the original 

@@ -782,15 +782,15 @@ string InventoryManager::toString() const
     stringstream ss;
     
     // Product Names line
-    ss << "------------------------\n"; // just add this bcs of tc in lms
-    ss << "Product Names: [";
-    for (int i = 0; i < this->productNames.size(); i++) {
-        if (i > 0) {
-            ss << ", ";
-        }
-        ss << this->productNames.get(i);
-    }
-    ss << "]\n";
+    // ss << "------------------------\n"; // just add this bcs of tc in lms
+    // ss << "Product Names: [";
+    // for (int i = 0; i < this->productNames.size(); i++) {
+    //     if (i > 0) {
+    //         ss << ", ";
+    //     }
+    //     ss << this->productNames.get(i);
+    // }
+    // ss << "]\n";
 
     // Start with a header
     ss << "InventoryManager[\n";
