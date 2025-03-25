@@ -569,6 +569,7 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
     // TODO
     // Use InventoryAttribute instead of pair<string, double>
     List1D<InventoryAttribute> matchingProducts;
+    List1D<int> matchingQuantities;
 
     for (int i = 0; i < this->size(); i++) {
         // Skip products with quantity less than minQuantity
@@ -587,6 +588,7 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
                     // Create a new InventoryAttribute to store the product name and attribute value
                     InventoryAttribute match(this->getProductName(i), attr.value);
                     matchingProducts.add(match);
+                    matchingQuantities.add(this->getProductQuantity(i));
                     break;
             }
         }
@@ -595,15 +597,30 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
     // Bubble sort 
     for (int i = 0; i < matchingProducts.size() - 1; i++) {
         for (int j = 0; j < matchingProducts.size() - i - 1; j++) {
-            // Based on ascending flag
-            bool shouldSwap = ascending ?
+            bool shouldSwap = false;
+            //  First, sorted by value
+            if (matchingProducts.get(j).value != matchingProducts.get(j + 1).value) {
+                // Based on ascending flag
+                shouldSwap = ascending ?
                 matchingProducts.get(j).value > matchingProducts.get(j + 1).value :
                 matchingProducts.get(j).value < matchingProducts.get(j + 1).value;
-        
+            } else {
+                // If value are equal, sort by quantity
+                shouldSwap = ascending ?
+                matchingQuantities.get(j) > matchingQuantities.get(j + 1) :
+                matchingQuantities.get(j) < matchingQuantities.get(j + 1);
+            }
+            
+
             if (shouldSwap) {
                 InventoryAttribute temp = matchingProducts.get(j);
                 matchingProducts.set(j, matchingProducts.get(j + 1));
                 matchingProducts.set(j + 1, temp);
+
+                // Swap quantities
+                int tempQuantity = matchingQuantities.get(j);
+                matchingQuantities.set(j, matchingQuantities.get(j + 1));
+                matchingQuantities.set(j + 1, tempQuantity);
             }    
         }
     }

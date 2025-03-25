@@ -244,3 +244,15 @@ changed from this // int section1Size = (this->size() * ratio) == static_cast<in
 
 to the whole bunch in split method 
 I think the problem in the old method is the comparision == when i static_cast<int> the value.
+
+I passed almost every testcases about InventoryManager. The only one problem rn
+lies in the query function. 
+
+26/03/2025
+This day will be for review my whole code and fix bugs if needed.
+
+ok the query is even sorted by the quantity ---> this is new information for me.
+I will wait one day to see if the instructos can confirm this.
+
+ok I just see the instructor mention about quantity so i updated my query function
+8:00pm: updated the query function
