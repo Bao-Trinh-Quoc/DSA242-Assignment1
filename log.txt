@@ -233,3 +233,14 @@ maybe change the amount of it to 1.5 and fix like the instructor said.
 25/03/2025
 
 4:07pm: ok, found out that when its empty the toString() in inventoryManager got it worng.
+just test with a test about query and i think the expected output is pretty flaw.
+
+5:08pm: ok the problem about precision is pretty tricky and fun
+
+ok i guess i solved it for now
+changed from this // int section1Size = (this->size() * ratio) == static_cast<int>(this->size() * ratio) 
+    //                ? static_cast<int>(this->size() * ratio) 
+    //                : static_cast<int>(this->size() * ratio) + 1;
+
+to the whole bunch in split method 
+I think the problem in the old method is the comparision == when i static_cast<int> the value.

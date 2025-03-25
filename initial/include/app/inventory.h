@@ -727,10 +727,20 @@ void InventoryManager::split(InventoryManager &section1,
     }
 
     // int section1Size = static_cast<int>(ceil(this->size() * ratio));
-    int section1Size = (this->size() * ratio) == static_cast<int>(this->size() * ratio) 
-                   ? static_cast<int>(this->size() * ratio) 
-                   : static_cast<int>(this->size() * ratio) + 1;
-                   
+    // int section1Size = (this->size() * ratio) == static_cast<int>(this->size() * ratio) 
+    //                ? static_cast<int>(this->size() * ratio) 
+    //                : static_cast<int>(this->size() * ratio) + 1;
+    
+    // Calculate exact size
+    double exactSize = this->size() * ratio;
+    int integerPart = static_cast<int>(exactSize);
+    
+    const double SMALL_EPSILON = 1e-10;
+    double decimalPart = exactSize - integerPart;
+    
+    // If decimal part is significant (greater than EPSILON), round up
+    int section1Size = (decimalPart > SMALL_EPSILON) ? integerPart + 1 : integerPart;
+
     // just to be safe
     if (section1Size < 0) {
         section1Size = 0;

@@ -127,10 +127,53 @@ void tc_inventory1003() {
 }
 
 void simplified_test() {
-    // Test list1D initialization
-    int numElements = 5;
-    List1D<int> list1D(numElements);
-    list1D.toString();
+    InventoryAttribute attrA1("weight", 10);
+    InventoryAttribute attrA2("height", 156);
+    InventoryAttribute arrA[] = { attrA1, attrA2 };
+    int numAttrA = sizeof(arrA) / sizeof(arrA[0]);
+    List1D<InventoryAttribute> listAttrA(arrA, numAttrA);
+ 
+    InventoryAttribute attrA3("height", 100);
+    InventoryAttribute arrA1[] = { attrA1, attrA3 };
+    int numAttrA1 = sizeof(arrA1) / sizeof(arrA1[0]);
+    List1D<InventoryAttribute> listAttrB(arrA1, numAttrA1);
+ 
+    InventoryAttribute attrA4("height", 100);
+    InventoryAttribute arrA4[] = { attrA1, attrA4 };
+    int numAttrA4 = sizeof(arrA4) / sizeof(arrA4[0]);
+    List1D<InventoryAttribute> listAttrc(arrA4, numAttrA4);
+ 
+ 
+ 
+    List1D<InventoryAttribute> list[] = {listAttrA,listAttrB,listAttrc,listAttrA,listAttrA};
+    List2D<InventoryAttribute> emptyMatrix(list,5); // Ma trận thuộc tính rỗng
+    string name1[] = {"A", "B","C", "D", "E"};
+    List1D<string> names1(name1,5);
+    int quan[] = {150, 20, 30, 40, 50};
+    List1D<int> quantities1(quan,5);
+    InventoryManager inv1(emptyMatrix, names1, quantities1);
+    string name2[] = {"F", "G", "I", "H", "J"};
+    List1D<string> names2(name2,5);
+    int quan1[] = {1100, 70, 80, 90, 100};
+    List1D<int> quantities2(quan1,5);
+    InventoryManager inv2(emptyMatrix, names2, quantities2);
+ 
+    InventoryManager merged = InventoryManager::merge(inv1, inv2);
+
+    
+    
+    double maxvalue = 200;
+    double minvalue =5;
+
+    cout << merged.toString() << endl;
+
+    cout << "Output: \n";
+    cout << merged.query("height",minvalue,maxvalue,10,true).toString()<<endl;
+    cout <<merged.query("height",minvalue,maxvalue,10,false).toString()<<endl;
+
+    cout << "Expected output: \n";
+    cout << "[B, C, G, I, D, E, H, J, A, F]\n\
+[F, A, J, H, E, D, I, G, C, B]\n";
 }
 
 void tc_inventory1004(){
@@ -362,4 +405,75 @@ void lms_tc_inventory1006(){
     cout << "\nAfter removing duplicates:" << endl;
     cout << inventory.size() << endl;
     cout << inventory.toString() << endl;
+}
+
+void test_split() {
+    InventoryAttribute attr1("weight", 10);
+    InventoryAttribute attr2("height", 150);
+    InventoryAttribute attr3("height", 160);
+    InventoryAttribute attr4("height", 170);
+    InventoryAttribute attr5("height", 180);
+    
+    InventoryAttribute arrA[] = {attr1, attr2};
+    InventoryAttribute arrB[] = {attr1, attr3};
+    InventoryAttribute arrC[] = {attr1, attr4};
+    InventoryAttribute arrD[] = {attr1, attr5};
+    
+    List1D<InventoryAttribute> listA(arrA, 2);
+    List1D<InventoryAttribute> listB(arrB, 2);
+    List1D<InventoryAttribute> listC(arrC, 2);
+    List1D<InventoryAttribute> listD(arrD, 2);
+    
+    List1D<InventoryAttribute> lists[] = {listA, listB, listC, listD,
+                                          listA, listB, listC, listD,
+                                          listA, listB, listC, listD,
+                                          listA, listB, listC, listD,
+                                          listA, listB, listC, listD};
+    
+    List2D<InventoryAttribute> attributesMatrix(lists, 20);
+    
+    string productNamesArr[] = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", 
+                                "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T"};
+    List1D<string> productNames(productNamesArr, 20);
+    
+    int quantitiesArr[] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+                           110, 120, 130, 140, 150, 160, 170, 180, 190, 200};
+    List1D<int> quantities(quantitiesArr, 20);
+    
+    InventoryManager inv(attributesMatrix, productNames, quantities);
+
+    cout << "Expected output: \n";
+    cout << "[]\n\
+[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T]\n\
+[A, B]\n\
+[C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T]\n\
+[A, B, C, D]\n\
+[E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T]\n\
+[A, B, C, D, E, F]\n\
+[G, H, I, J, K, L, M, N, O, P, Q, R, S, T]\n\
+[A, B, C, D, E, F, G, H]\n\
+[I, J, K, L, M, N, O, P, Q, R, S, T]\n\
+[A, B, C, D, E, F, G, H, I, J]\n\
+[K, L, M, N, O, P, Q, R, S, T]\n\
+[A, B, C, D, E, F, G, H, I, J, K, L]\n\
+[M, N, O, P, Q, R, S, T]\n\
+[A, B, C, D, E, F, G, H, I, J, K, L, M, N]\n\
+[O, P, Q, R, S, T]\n\
+[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P]\n\
+[Q, R, S, T]\n\
+[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R]\n\
+[S, T]\n\
+[A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T]\n\
+[]\n";
+    cout << "Output: \n";
+    InventoryManager s1;
+    InventoryManager s2;
+
+    cout << "Invetory size: " << inv.size() << endl;
+    for(double i = 0.0; i <= 1.0; i += 0.1) {
+        cout << i << endl;
+        inv.split(s1,s2,i);
+        cout<<s1.getProductNames()<<endl;
+        cout<<s2.getProductNames()<<endl;
+    }
 }
