@@ -799,21 +799,27 @@ string InventoryManager::toString() const
     // instead of reuse the toString() method of List2D
     // ss << "  AttributesMatrix: " << this->attributesMatrix.toString() << ",\n";
     //  I will implement it my self with the fixed precision
-    ss << "  AttributesMatrix: [[";
-    for (int i = 0; i < this->attributesMatrix.rows(); i++) {
-        if (i > 0) {
-            ss << "], [";
-        }
-        List1D<InventoryAttribute> row = this->attributesMatrix.getRow(i);
-        for (int j = 0; j < row.size(); j++) {
-            if (j > 0) {
-                ss << ", ";
+    ss << "  AttributesMatrix: [";
+     // Special case for empty matrix
+     if (this->attributesMatrix.rows() == 0) {
+        ss << "],\n";
+    } else {
+        ss << "[";
+        for (int i = 0; i < this->attributesMatrix.rows(); i++) {
+            if (i > 0) {
+                ss << "], [";
             }
-            InventoryAttribute attr = row.get(j);
-            ss << attr.name << ": " << fixed << setprecision(6) << attr.value;
+            List1D<InventoryAttribute> row = this->attributesMatrix.getRow(i);
+            for (int j = 0; j < row.size(); j++) {
+                if (j > 0) {
+                    ss << ", ";
+                }
+                InventoryAttribute attr = row.get(j);
+                ss << attr.name << ": " << fixed << setprecision(6) << attr.value;
+            }
         }
+        ss << "]],\n";
     }
-    ss << "]],\n";
 
 
     // Add product names

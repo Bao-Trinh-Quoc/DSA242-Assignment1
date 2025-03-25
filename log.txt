@@ -229,3 +229,7 @@ probably need to rethink about ensureCapacity
 maybe change the amount of it to 1.5 and fix like the instructor said.
 
 8:01pm: ok change the to String like the original 
+
+25/03/2025
+
+4:07pm: ok, found out that when its empty the toString() in inventoryManager got it worng.
