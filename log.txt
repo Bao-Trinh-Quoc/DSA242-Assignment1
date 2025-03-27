@@ -256,3 +256,8 @@ I will wait one day to see if the instructos can confirm this.
 
 ok I just see the instructor mention about quantity so i updated my query function
 8:00pm: updated the query function
+
+27/03/2025
+
+Ok When ascending = true, the preceding product remains in front (if other attributes are equal), 
+so when ascending = false, the opposite applies.

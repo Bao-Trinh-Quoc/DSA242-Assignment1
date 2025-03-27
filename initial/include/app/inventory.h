@@ -604,15 +604,20 @@ List1D<string> InventoryManager::query(string attributeName, const double &minVa
                 shouldSwap = ascending ?
                 matchingProducts.get(j).value > matchingProducts.get(j + 1).value :
                 matchingProducts.get(j).value < matchingProducts.get(j + 1).value;
-            } else {
+            } else if (matchingQuantities.get(j) != matchingQuantities.get(j + 1)) {
                 // If value are equal, sort by quantity
                 shouldSwap = ascending ?
                 matchingQuantities.get(j) > matchingQuantities.get(j + 1) :
                 matchingQuantities.get(j) < matchingQuantities.get(j + 1);
+            } else {
+                // if ascending is true, maintain original order
+                // and reverse original order when descending
+                shouldSwap = !ascending;
             }
             
 
             if (shouldSwap) {
+                // Swap products
                 InventoryAttribute temp = matchingProducts.get(j);
                 matchingProducts.set(j, matchingProducts.get(j + 1));
                 matchingProducts.set(j + 1, temp);
