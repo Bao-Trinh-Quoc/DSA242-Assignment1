@@ -1,1 +1,3 @@
-# DSA-242-main
+# DSA-242-Assignment 1
+
+DSA at HCMUT! 😊😖😡🤬🥹😊
